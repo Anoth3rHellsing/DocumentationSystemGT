@@ -60,7 +60,6 @@ struct CaseData {
     std::string processor;
     std::string warranty;
 
-kqtui1-codex/implement-case-documentation-storage-in-c++
     // Mission critical checklist
     bool logsTaken = false;
     bool screenshotsTaken = false;
@@ -75,8 +74,6 @@ kqtui1-codex/implement-case-documentation-storage-in-c++
         return out;
     }
 
-=======
-main
     std::string buildTitle() const {
         return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
     }
@@ -137,6 +134,6 @@ main
             return "Could not attach logs: " + info;
         }
     }
- kqtui1-codex/implement-case-documentation-storage-in-c++
+};
 
 #endif // CASE_DATA_H
