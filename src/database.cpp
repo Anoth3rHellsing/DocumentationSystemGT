@@ -53,10 +53,14 @@ bool createCaseTable(sqlite3* db) {
         "biosVersion TEXT,"
         "graphicsCard TEXT,"
         "processor TEXT,"
+kqtui1-codex/implement-case-documentation-storage-in-c++
         "warranty TEXT,"
         "logsTaken INTEGER,"
         "screenshotsTaken INTEGER,"
         "recapEmailSent INTEGER"
+=======
+        "warranty TEXT"
+main
         ");";
 
     char* err = nullptr;
@@ -70,7 +74,11 @@ bool createCaseTable(sqlite3* db) {
 
 bool insertCaseData(sqlite3* db, const CaseData& d) {
     const char* sql =
+ kqtui1-codex/implement-case-documentation-storage-in-c++
         "INSERT INTO cases (caseId, titleBriefDesc, descriptionPhoneCall, caseIdRelated, callerName, companyName, dongle, subscriptionId, officeNumber, cellphone, email, teamviewerId, teamviewerPassword, triosModuleVersion, uniteVersion, uniteCompanyId, helpJuiceOrJiraUsed, baseSerialNumber, scannerSerialNumber, scannerModel, scannerBroken, relatedCaseLast30Days, happenedLast30Days, possibleCause, performanceIssue, anyUpdate, manualAdditional, reason, solution, recommendation, hjTutorial, restartComputer, scanTime, recommendationEmail, serviceTag, pcModel, windowsVersion, biosVersion, graphicsCard, processor, warranty, logsTaken, screenshotsTaken, recapEmailSent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+=======
+        "INSERT INTO cases (caseId, titleBriefDesc, descriptionPhoneCall, caseIdRelated, callerName, companyName, dongle, subscriptionId, officeNumber, cellphone, email, teamviewerId, teamviewerPassword, triosModuleVersion, uniteVersion, uniteCompanyId, helpJuiceOrJiraUsed, baseSerialNumber, scannerSerialNumber, scannerModel, scannerBroken, relatedCaseLast30Days, happenedLast30Days, possibleCause, performanceIssue, anyUpdate, manualAdditional, reason, solution, recommendation, hjTutorial, restartComputer, scanTime, recommendationEmail, serviceTag, pcModel, windowsVersion, biosVersion, graphicsCard, processor, warranty) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+ main
     sqlite3_stmt* stmt = nullptr;
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
@@ -126,9 +134,12 @@ bool insertCaseData(sqlite3* db, const CaseData& d) {
     bindText(d.graphicsCard);
     bindText(d.processor);
     bindText(d.warranty);
+ kqtui1-codex/implement-case-documentation-storage-in-c++
     bindBool(d.logsTaken);
     bindBool(d.screenshotsTaken);
     bindBool(d.recapEmailSent);
+=======
+ main
 
     bool ok = sqlite3_step(stmt) == SQLITE_DONE;
     if (!ok) {
