@@ -2,7 +2,6 @@
 #define CASE_DATA_H
 
 #include <string>
-#include <optional>
 
 struct CaseData {
     // Basic case identification
@@ -59,6 +58,10 @@ struct CaseData {
     std::string graphicsCard;
     std::string processor;
     std::string warranty;
+
+    std::string buildTitle() const {
+        return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
+    }
 };
 
 #endif // CASE_DATA_H
