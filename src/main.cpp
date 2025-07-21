@@ -20,6 +20,7 @@ int main() {
 
     std::cout << "Stored case with title: " << d.buildTitle() << std::endl;
 
+js7fro-codex/implement-case-documentation-storage-in-c++
     std::cout << "Phonecall title: " << d.buildPhonecallTitle() << std::endl;
     std::cout << d.buildPhonecallNote() << std::endl;
 
@@ -28,6 +29,8 @@ int main() {
                                      "https://example.com/jira")
               << std::endl;
 
+=======
+main
     sqlite3_close(db);
     return 0;
 }
