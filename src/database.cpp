@@ -76,6 +76,9 @@ bool insertCaseData(sqlite3* db, const CaseData& d) {
     sqlite3_stmt* stmt = nullptr;
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
+        if (stmt) {
+            sqlite3_finalize(stmt);
+        }
         return false;
     }
 
