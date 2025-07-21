@@ -8,6 +8,12 @@ int main() {
     d.companyName = "ExampleCorp";
     d.subscriptionId = "5678";
     d.titleBriefDesc = "Network issue";
+kqtui1-codex/implement-case-documentation-storage-in-c++
+    d.logsTaken = true;
+    d.screenshotsTaken = false;
+    d.recapEmailSent = true;
+=======
+ main
 
     sqlite3* db = openDatabase("cases.db");
     if (!db) return 1;
@@ -27,7 +33,9 @@ int main() {
     std::cout << d.buildInternalNote(CaseData::InternalNoteVariation::HelpjuiceUsed,
                                      "https://example.com/jira")
               << std::endl;
-
+  
+kqtui1-codex/implement-case-documentation-storage-in-c++
+    std::cout << d.buildMissionCriticalChecklist() << std::endl;
     sqlite3_close(db);
     return 0;
 }
