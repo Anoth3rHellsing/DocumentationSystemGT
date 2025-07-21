@@ -12,6 +12,8 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 - `Logs:\tLogs attached (Zip Folder must be attached)`
 - `Could not attach logs: <reason>`
 
+kqtui1-codex/implement-case-documentation-storage-in-c++
+
 `CaseData` tracks three mission critical steps (logs taken, screenshots taken, recap email sent). The `buildMissionCriticalChecklist` helper returns a string listing each item as `TRUE` or `FALSE` so agents can confirm completion.
 
 Build the project with CMake:
