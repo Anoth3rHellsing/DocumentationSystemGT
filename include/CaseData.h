@@ -88,6 +88,38 @@ struct CaseData {
         note += "Email:\t" + email;
         return note;
     }
+
+    enum class InternalNoteVariation {
+        HelpjuiceUsed,
+        LogsAttached,
+        CouldNotAttachLogs
+    };
+
+    std::string buildInternalNoteTitle() const {
+        std::time_t t = std::time(nullptr);
+        std::tm tm{};
+#ifdef _WIN32
+        localtime_s(&tm, &t);
+#else
+        tm = *std::localtime(&t);
+#endif
+        char buf[16];
+        std::strftime(buf, sizeof(buf), "%Y%m%d", &tm);
+        return std::string("INT-") + buf;
+    }
+
+    std::string buildInternalNote(InternalNoteVariation variation,
+                                  const std::string& info = "") const {
+        switch (variation) {
+        case InternalNoteVariation::HelpjuiceUsed:
+            return "Helpjuice Used:\t" + info;
+        case InternalNoteVariation::LogsAttached:
+            return "Logs:\tLogs attached (Zip Folder must be attached)";
+        case InternalNoteVariation::CouldNotAttachLogs:
+        default:
+            return "Could not attach logs: " + info;
+        }
+    }
 };
 
 #endif // CASE_DATA_H

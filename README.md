@@ -6,6 +6,12 @@ This repository contains a basic C++ project that defines a `CaseData` structure
 
 `CaseData` also provides helpers to build a phone call title (`PHONECALLYYYYMMDD` for the current date) and a phone call note listing basic caller and connection information.
 
+Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buildInternalNote` method which returns one of three variations:
+
+- `Helpjuice Used:\t<Helpjuice/Jira link>`
+- `Logs:\tLogs attached (Zip Folder must be attached)`
+- `Could not attach logs: <reason>`
+
 Build the project with CMake:
 
 ```bash

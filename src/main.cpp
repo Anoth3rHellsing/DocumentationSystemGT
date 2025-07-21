@@ -23,6 +23,11 @@ int main() {
     std::cout << "Phonecall title: " << d.buildPhonecallTitle() << std::endl;
     std::cout << d.buildPhonecallNote() << std::endl;
 
+    std::cout << "Internal note title: " << d.buildInternalNoteTitle() << std::endl;
+    std::cout << d.buildInternalNote(CaseData::InternalNoteVariation::HelpjuiceUsed,
+                                     "https://example.com/jira")
+              << std::endl;
+
     sqlite3_close(db);
     return 0;
 }
