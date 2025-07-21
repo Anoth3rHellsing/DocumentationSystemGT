@@ -60,6 +60,23 @@ struct CaseData {
     std::string processor;
     std::string warranty;
 
+kqtui1-codex/implement-case-documentation-storage-in-c++
+    // Mission critical checklist
+    bool logsTaken = false;
+    bool screenshotsTaken = false;
+    bool recapEmailSent = false;
+
+    std::string buildMissionCriticalChecklist() const {
+        auto toStr = [](bool b) { return b ? "TRUE" : "FALSE"; };
+        std::string out;
+        out += "Logs Taken?\t" + std::string(toStr(logsTaken)) + "\n";
+        out += "Screenshots taken?\t" + std::string(toStr(screenshotsTaken)) + "\n";
+        out += "Recap Email sent?\t" + std::string(toStr(recapEmailSent));
+        return out;
+    }
+
+=======
+main
     std::string buildTitle() const {
         return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
     }
@@ -120,6 +137,10 @@ struct CaseData {
             return "Could not attach logs: " + info;
         }
     }
+ kqtui1-codex/implement-case-documentation-storage-in-c++
+};
+=======
 }; 
+ main
 
 #endif // CASE_DATA_H
