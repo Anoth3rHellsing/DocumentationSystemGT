@@ -2,6 +2,10 @@
 #define CASE_DATA_H
 
 #include <string>
+js7fro-codex/implement-case-documentation-storage-in-c++
+#include <ctime>
+=======
+main
 
 struct CaseData {
     // Basic case identification
@@ -62,6 +66,66 @@ struct CaseData {
     std::string buildTitle() const {
         return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
     }
+js7fro-codex/implement-case-documentation-storage-in-c++
+
+    std::string buildPhonecallTitle() const {
+        std::time_t t = std::time(nullptr);
+        std::tm tm{};
+#ifdef _WIN32
+        localtime_s(&tm, &t);
+#else
+        tm = *std::localtime(&t);
+#endif
+        char buf[16];
+        std::strftime(buf, sizeof(buf), "%Y%m%d", &tm);
+        return std::string("PHONECALL") + buf;
+    }
+
+    std::string buildPhonecallNote() const {
+        std::string note;
+        note += "Caller name:\t" + callerName + "\n";
+        note += "Description:\t" + descriptionPhoneCall + "\n";
+        note += "Dongle Number:\t" + dongle + "\n";
+        note += "Phone Number:\t" + cellphone + "\n";
+        note += "TeamViewerID:\t" + teamviewerId + "\n";
+        note += "TeamViewer Password:\t" + teamviewerPassword + "\n";
+        note += "Email:\t" + email;
+        return note;
+    }
+
+    enum class InternalNoteVariation {
+        HelpjuiceUsed,
+        LogsAttached,
+        CouldNotAttachLogs
+    };
+
+    std::string buildInternalNoteTitle() const {
+        std::time_t t = std::time(nullptr);
+        std::tm tm{};
+#ifdef _WIN32
+        localtime_s(&tm, &t);
+#else
+        tm = *std::localtime(&t);
+#endif
+        char buf[16];
+        std::strftime(buf, sizeof(buf), "%Y%m%d", &tm);
+        return std::string("INT-") + buf;
+    }
+
+    std::string buildInternalNote(InternalNoteVariation variation,
+                                  const std::string& info = "") const {
+        switch (variation) {
+        case InternalNoteVariation::HelpjuiceUsed:
+            return "Helpjuice Used:\t" + info;
+        case InternalNoteVariation::LogsAttached:
+            return "Logs:\tLogs attached (Zip Folder must be attached)";
+        case InternalNoteVariation::CouldNotAttachLogs:
+        default:
+            return "Could not attach logs: " + info;
+        }
+    }
+=======
+main
 };
 
 #endif // CASE_DATA_H
