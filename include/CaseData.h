@@ -2,10 +2,7 @@
 #define CASE_DATA_H
 
 #include <string>
-js7fro-codex/implement-case-documentation-storage-in-c++
 #include <ctime>
-=======
-main
 
 struct CaseData {
     // Basic case identification
@@ -66,7 +63,6 @@ struct CaseData {
     std::string buildTitle() const {
         return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
     }
-js7fro-codex/implement-case-documentation-storage-in-c++
 
     std::string buildPhonecallTitle() const {
         std::time_t t = std::time(nullptr);
@@ -124,8 +120,6 @@ js7fro-codex/implement-case-documentation-storage-in-c++
             return "Could not attach logs: " + info;
         }
     }
-=======
-main
-};
+}; 
 
 #endif // CASE_DATA_H

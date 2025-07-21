@@ -1,0 +1,7 @@
+# Build artifacts
+build/
+*.o
+# Executables
+/doc_sys
+# Database files
+*.db

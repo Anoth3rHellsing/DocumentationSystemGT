@@ -5,6 +5,8 @@ sqlite3* openDatabase(const std::string& path) {
     sqlite3* db = nullptr;
     if (sqlite3_open(path.c_str(), &db) != SQLITE_OK) {
         std::cerr << "Failed to open database: " << sqlite3_errmsg(db) << std::endl;
+        if (db)
+            sqlite3_close(db);
         return nullptr;
     }
     return db;
@@ -71,6 +73,9 @@ bool insertCaseData(sqlite3* db, const CaseData& d) {
     sqlite3_stmt* stmt = nullptr;
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
+        if (stmt) {
+            sqlite3_finalize(stmt);
+        }
         return false;
     }
 
