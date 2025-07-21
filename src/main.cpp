@@ -36,6 +36,7 @@ int main() {
 
     std::cout << d.buildMissionCriticalChecklist() << std::endl;
 
+
     sqlite3_close(db);
     return 0;
 }
