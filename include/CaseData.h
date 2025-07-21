@@ -60,6 +60,20 @@ struct CaseData {
     std::string processor;
     std::string warranty;
 
+    // Mission critical checklist
+    bool logsTaken = false;
+    bool screenshotsTaken = false;
+    bool recapEmailSent = false;
+
+    std::string buildMissionCriticalChecklist() const {
+        auto toStr = [](bool b) { return b ? "TRUE" : "FALSE"; };
+        std::string out;
+        out += "Logs Taken?\t" + std::string(toStr(logsTaken)) + "\n";
+        out += "Screenshots taken?\t" + std::string(toStr(screenshotsTaken)) + "\n";
+        out += "Recap Email sent?\t" + std::string(toStr(recapEmailSent));
+        return out;
+    }
+
     std::string buildTitle() const {
         return "||" + companyName + "|SID" + subscriptionId + "|" + titleBriefDesc + "|" + caseId;
     }
@@ -120,6 +134,6 @@ struct CaseData {
             return "Could not attach logs: " + info;
         }
     }
-}; 
+};
 
 #endif // CASE_DATA_H
