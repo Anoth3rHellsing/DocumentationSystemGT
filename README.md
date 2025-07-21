@@ -22,3 +22,16 @@ cmake ..
 make
 ./doc_sys
 ```
+
+## Windows installer
+
+This project includes CPack configuration for creating an MSI package. On a Windows
+machine with CMake and the [WiX Toolset](https://wixtoolset.org/) installed you
+can generate the installer from the `build` directory:
+
+```bash
+cpack -G WIX
+```
+
+The resulting `DocumentationSystemGT-0.1.0-win64.msi` file installs `doc_sys`
+to `Program Files`.
