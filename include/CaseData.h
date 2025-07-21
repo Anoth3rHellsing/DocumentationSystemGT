@@ -138,9 +138,5 @@ main
         }
     }
  kqtui1-codex/implement-case-documentation-storage-in-c++
-};
-=======
-}; 
- main
 
 #endif // CASE_DATA_H

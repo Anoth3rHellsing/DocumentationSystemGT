@@ -33,12 +33,9 @@ kqtui1-codex/implement-case-documentation-storage-in-c++
     std::cout << d.buildInternalNote(CaseData::InternalNoteVariation::HelpjuiceUsed,
                                      "https://example.com/jira")
               << std::endl;
-
+  
 kqtui1-codex/implement-case-documentation-storage-in-c++
     std::cout << d.buildMissionCriticalChecklist() << std::endl;
-
-=======
-main
     sqlite3_close(db);
     return 0;
 }
