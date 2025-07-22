@@ -51,7 +51,6 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
    The program will create a `cases.db` SQLite file in the current directory and
    print some example output.
-
 ### Windows
 
 1. **Install dependencies**
@@ -88,3 +87,4 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
    The program will create a `cases.db` SQLite file in the current directory and print some example output.
 
+=======
