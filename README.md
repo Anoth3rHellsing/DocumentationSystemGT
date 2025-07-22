@@ -87,4 +87,6 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
    The program will create a `cases.db` SQLite file in the current directory and print some example output.
 
-=======
+
+See the [CHANGELOG](CHANGELOG.md) for release details.
+
