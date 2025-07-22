@@ -14,11 +14,40 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
 `CaseData` tracks three mission critical steps (logs taken, screenshots taken, recap email sent). The `buildMissionCriticalChecklist` helper returns a string listing each item as `TRUE` or `FALSE` so agents can confirm completion.
 
-Build the project with CMake:
+## Installation (Dumbproof Guide)
 
-```bash
-mkdir build && cd build
-cmake ..
-make
-./doc_sys
-```
+1. **Install dependencies**
+
+   On Ubuntu/Debian run:
+
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y build-essential cmake libsqlite3-dev
+   ```
+
+   Make sure `git` is available so you can clone the repository.
+
+2. **Clone this repository and build the project**
+
+   ```bash
+   git clone <repository-url>
+   cd DocumentationSystemGT
+   mkdir build && cd build
+   cmake ..
+   make
+   ```
+
+3. **(Optional) Run the unit test**
+
+   ```bash
+   ctest --output-on-failure
+   ```
+
+4. **Run the example application**
+
+   ```bash
+   ./doc_sys
+   ```
+
+   The program will create a `cases.db` SQLite file in the current directory and
+   print some example output.
