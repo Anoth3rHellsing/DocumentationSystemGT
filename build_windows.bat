@@ -45,6 +45,7 @@ if not exist vcpkg (
 )
 
 vcpkg\vcpkg.exe install sqlite3:x64-windows
+
 if %ERRORLEVEL% NEQ 0 (
   echo Failed to install sqlite3 with vcpkg.
   pause
@@ -57,6 +58,7 @@ if not exist build mkdir build
 cd build
 
 cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN_FILE%
+
 if %ERRORLEVEL% NEQ 0 (
   echo cmake configuration failed.
   pause
