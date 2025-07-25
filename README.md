@@ -52,6 +52,7 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
    The program will create a `cases.db` SQLite file in the current directory and
    print some example output.
 
+
 ### Windows
 
 For a quick setup you can run the provided batch script. Open an elevated
@@ -65,6 +66,7 @@ The script installs all required dependencies with Chocolatey, builds the
 project in Release mode, runs the tests and launches the sample application.
 
 If you prefer to perform each step manually follow the instructions below.
+
 
 1. **Install dependencies**
 
@@ -101,3 +103,4 @@ If you prefer to perform each step manually follow the instructions below.
 
    The program will create a `cases.db` SQLite file in the current directory and print some example output.
 
+See the [CHANGELOG](CHANGELOG.md) for release details.
