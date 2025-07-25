@@ -51,7 +51,22 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
    The program will create a `cases.db` SQLite file in the current directory and
    print some example output.
+
+
 ### Windows
+
+For a quick setup you can run the provided batch script. Open an elevated
+Developer Command Prompt and execute:
+
+```cmd
+build_windows.bat
+```
+
+The script installs all required dependencies with Chocolatey, builds the
+project in Release mode, runs the tests and launches the sample application.
+
+If you prefer to perform each step manually follow the instructions below.
+
 
 1. **Install dependencies**
 
@@ -68,7 +83,8 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
    ```powershell
    git clone <repository-url>
    cd DocumentationSystemGT
-   mkdir build && cd build
+   mkdir build
+   cd build
    cmake .. -G "Visual Studio 17 2022"
    cmake --build . --config Release
    ```
@@ -87,6 +103,4 @@ Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buil
 
    The program will create a `cases.db` SQLite file in the current directory and print some example output.
 
-
 See the [CHANGELOG](CHANGELOG.md) for release details.
-
