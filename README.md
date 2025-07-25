@@ -55,19 +55,22 @@ these items as `TRUE` or `FALSE`.
 ### Windows
 
 The `build_windows.bat` script automates setup using
-[Chocolatey](https://chocolatey.org/). Run it from an elevated Developer
-Command Prompt to install dependencies, build the project, run the tests
-and launch the example program.
+[Chocolatey](https://chocolatey.org/) and [vcpkg](https://github.com/microsoft/vcpkg).
+Run it from an elevated Developer Command Prompt to install dependencies,
+build the project, run the tests and launch the example program.
 
 If you prefer manual steps:
 
 1. **Install dependencies**
 
-   Install Visual Studio Build Tools (with C++ support), CMake, Git and
-   SQLite. The easiest approach is via Chocolatey:
+   Install Visual Studio Build Tools (with C++ support), CMake, Git and a
+   SQLite3 development package. One approach is to use vcpkg:
 
    ```powershell
-   choco install -y visualstudio2022buildtools cmake git sqlite
+   choco install -y visualstudio2022buildtools cmake git
+   git clone https://github.com/microsoft/vcpkg
+   .\vcpkg\bootstrap-vcpkg.bat
+   .\vcpkg\vcpkg.exe install sqlite3
    ```
 
 2. **Clone and build**
@@ -77,8 +80,15 @@ If you prefer manual steps:
    cd DocumentationSystemGT
    mkdir build
    cd build
-   cmake .. -G "Visual Studio 17 2022"
+   cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=..\vcpkg\scripts\buildsystems\vcpkg.cmake
    cmake --build . --config Release
+   ```
+
+   If you installed SQLite3 manually, omit the toolchain file and pass the
+   `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
+
+   ```powershell
+   cmake .. -G "Visual Studio 17 2022" -DSQLite3_INCLUDE_DIR=C:\path\to\include -DSQLite3_LIBRARY=C:\path\to\sqlite3.lib
    ```
 
 3. **Run the tests (optional)**

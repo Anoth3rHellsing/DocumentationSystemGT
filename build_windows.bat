@@ -12,17 +12,42 @@ if %ERRORLEVEL% NEQ 0 (
   exit /b 1
 )
 
-choco install -y visualstudio2022buildtools cmake git sqlite
+choco install -y visualstudio2022buildtools cmake git
 if %ERRORLEVEL% NEQ 0 (
   echo Failed to install dependencies.
   pause
   exit /b 1
 )
 
+REM Acquire SQLite3 using vcpkg
+if not exist vcpkg (
+  git clone https://github.com/microsoft/vcpkg
+  if %ERRORLEVEL% NEQ 0 (
+    echo Failed to clone vcpkg.
+    pause
+    exit /b 1
+  )
+  call vcpkg\bootstrap-vcpkg.bat
+  if %ERRORLEVEL% NEQ 0 (
+    echo vcpkg bootstrap failed.
+    pause
+    exit /b 1
+  )
+)
+
+vcpkg\vcpkg.exe install sqlite3
+if %ERRORLEVEL% NEQ 0 (
+  echo Failed to install sqlite3 with vcpkg.
+  pause
+  exit /b 1
+)
+
+set VCPKG_TOOLCHAIN_FILE=%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake
+
 if not exist build mkdir build
 cd build
 
-cmake .. -G "Visual Studio 17 2022"
+cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN_FILE%
 if %ERRORLEVEL% NEQ 0 (
   echo cmake configuration failed.
   pause
