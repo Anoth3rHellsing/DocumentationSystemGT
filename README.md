@@ -109,6 +109,12 @@ If you prefer manual steps:
    The program creates `cases.db` in the current directory and prints
    sample output.
 
+### Clean Uninstall on Windows
+
+Run `uninstall_windows.bat` from an elevated Developer Command Prompt to
+remove the Chocolatey packages, delete the `vcpkg` folder, the `build`
+directory and any generated database files.
+
 ## Recommendations
 
 - Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
