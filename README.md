@@ -101,5 +101,4 @@ If you prefer to perform each step manually follow the instructions below.
 
    The program will create a `cases.db` SQLite file in the current directory and print some example output.
 
-=======
 See the [CHANGELOG](CHANGELOG.md) for release details.
