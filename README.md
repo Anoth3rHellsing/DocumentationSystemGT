@@ -56,6 +56,7 @@ these items as `TRUE` or `FALSE`.
 
 The `build_windows.bat` script automates setup using
 [Chocolatey](https://chocolatey.org/) and [vcpkg](https://github.com/microsoft/vcpkg).
+
 Run it from an elevated **Developer Command Prompt for VS** to install
 dependencies, build the project, run the tests and launch the example
 program. The script locates your Visual Studio installation using
