@@ -1,4 +1,6 @@
 @echo off
+REM Move to the directory containing this script
+cd /d "%~dp0"
 REM Build and run DocumentationSystemGT on Windows
 REM Installs dependencies via Chocolatey and builds using CMake
 
