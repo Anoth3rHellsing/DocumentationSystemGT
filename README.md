@@ -1,20 +1,29 @@
 # DocumentationSystemGT
 
-Documentation System for CRM case documentation.
+Documentation system for storing CRM case information.
 
-This repository provides a minimal C++ project demonstrating how to
-store raw technical support case information. `CaseData` keeps details
-such as the caller, scanner information and mission‑critical checklist
-results. Case records are stored in a local SQLite database.
+This repository provides a minimal C++ project that demonstrates how to
+store raw technical support case information. The `CaseData` struct keeps
+details such as the caller, scanner information and mission‑critical
+checklist results. Case records are stored in a local SQLite database.
 
-Helper methods produce formatted strings used in CRM notes:
+Helper methods produce formatted strings for CRM notes:
 - `buildTitle()` → `||CompanyName|SIDSubscriptionID|BriefDescriptionTitle|CaseID`
 - `buildPhonecallTitle()` → `PHONECALLYYYYMMDD`
+- `buildPhonecallNote()` → lists caller and connection details
 - `buildInternalNoteTitle()` → `INT-YYYYMMDD`
+- `buildInternalNote()` → "Helpjuice Used:\t<link>" or "Logs:\tLogs attached" or
+  "Could not attach logs: <reason>"
 
 `CaseData` tracks whether logs were taken, screenshots captured and a
 recap email sent. The `buildMissionCriticalChecklist()` helper lists
-these items as `TRUE` or `FALSE`.
+these items as `TRUE` or `FALSE`:
+
+```
+Logs Taken?        TRUE
+Screenshots taken? FALSE
+Recap Email sent?  TRUE
+```
 
 ## Installation (Quick Start)
 
@@ -55,6 +64,11 @@ these items as `TRUE` or `FALSE`.
 ### Windows
 
 The `build_windows.bat` script automates setup using
+
+[Chocolatey](https://chocolatey.org/). Run it from an elevated Developer
+Command Prompt to install dependencies, build the project, run the tests
+and launch the example program.
+=======
 [Chocolatey](https://chocolatey.org/) and [vcpkg](https://github.com/microsoft/vcpkg).
 
 Run it from an elevated **Developer Command Prompt for VS** to install
@@ -66,8 +80,8 @@ If you prefer manual steps:
 
 1. **Install dependencies**
 
-   Install Visual Studio Build Tools (with C++ support), CMake, Git and a
-   SQLite3 development package. One approach is to use vcpkg:
+   Install Visual Studio Build Tools (with C++ support), CMake, Git and
+   SQLite. The easiest approach is via Chocolatey:
 
    ```powershell
    choco install -y visualstudio2022buildtools cmake git
@@ -86,7 +100,7 @@ If you prefer manual steps:
    cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=..\vcpkg\scripts\buildsystems\vcpkg.cmake
    cmake --build . --config Release
    ```
-
+  
    If you installed SQLite3 manually, omit the toolchain file and pass the
    `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
 
