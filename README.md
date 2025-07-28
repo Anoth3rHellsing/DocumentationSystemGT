@@ -39,7 +39,7 @@ Recap Email sent?  TRUE
 2. **Clone and build**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
    mkdir build
    cd build
@@ -69,14 +69,9 @@ The `build_windows.bat` script automates setup using
 Command Prompt to install dependencies, build the project, run the tests
 and launch the example program.
 
-[Chocolatey](https://chocolatey.org/) and [vcpkg](https://github.com/microsoft/vcpkg).
+If you prefer manual steps, open an elevated Developer Command Prompt and
+switch to a convenient working directory such as `C:\`:
 
-Run it from an elevated **Developer Command Prompt for VS** to install
-dependencies, build the project, run the tests and launch the example
-program. The script locates your Visual Studio installation using
-`vswhere.exe` and configures the environment automatically.
-
-If you prefer manual steps:
 
 1. **Install dependencies**
 
@@ -84,20 +79,20 @@ If you prefer manual steps:
    SQLite. The easiest approach is via Chocolatey:
 
    ```powershell
-   choco install -y visualstudio2022buildtools cmake git
-   git clone https://github.com/microsoft/vcpkg
-   .\vcpkg\bootstrap-vcpkg.bat
-   .\vcpkg\vcpkg.exe install sqlite3:x64-windows
+   choco install -y visualstudio2022buildtools cmake git sqlite
+   refreshenv    # or restart the command prompt
    ```
 
 2. **Clone and build**
 
    ```powershell
+   cd C:\
    git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
    mkdir build
    cd build
-   cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=..\vcpkg\scripts\buildsystems\vcpkg.cmake
+
+   cmake .. -G "Visual Studio 17 2022" -A x64
    cmake --build . --config Release
    ```
   
