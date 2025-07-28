@@ -53,10 +53,11 @@ Recap Email sent?  TRUE
    ctest --output-on-failure
    ```
 
-4. **Run the example**
+4. **Run the examples**
 
    ```bash
-   ./doc_sys
+   ./doc_sys      # command-line example
+   ./doc_gui      # Qt GUI example
    ```
 
    A `cases.db` file will appear in the working directory.
@@ -108,26 +109,15 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
    ctest -C Release --output-on-failure
    ```
 
-4. **Run the example**
+4. **Run the examples**
 
    ```powershell
-   .\Release\doc_sys.exe
+   .\Release\doc_sys.exe  # command-line example
+   .\Release\doc_gui.exe  # Qt GUI example
    ```
 
    The program creates `cases.db` in the current directory and prints sample output.
 
-## Recommendations
-
-- Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
-- Manage libraries with [vcpkg](https://github.com/microsoft/vcpkg) on Windows.
-- Run the unit tests after making changes to verify your setup.
-- Update `build_windows.bat` when new Visual Studio versions are released.
-- Store the SQLite database on a fast drive if you expect many cases.
-- Extend `CaseData` or the example program to integrate with your actual CRM workflow.
-=======
-   The program creates `cases.db` in the current directory and prints
-   sample output.
-  
 ### Clean Uninstall on Windows
 
 Run `uninstall_windows.bat` from an elevated Developer Command Prompt to
