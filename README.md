@@ -1,15 +1,23 @@
 # DocumentationSystemGT
 
-A minimal C++ example that stores CRM case data in a local SQLite database. The `CaseData` structure records caller and scanner details along with a mission‑critical checklist.
+Documentation system for storing CRM case information.
 
-Helper functions format CRM notes:
+This repository provides a minimal C++ project that demonstrates how to
+store raw technical support case information. The `CaseData` struct keeps
+details such as the caller, scanner information and mission‑critical
+checklist results. Case records are stored in a local SQLite database.
+
+Helper methods produce formatted strings for CRM notes:
 - `buildTitle()` → `||CompanyName|SIDSubscriptionID|BriefDescriptionTitle|CaseID`
 - `buildPhonecallTitle()` → `PHONECALLYYYYMMDD`
-- `buildPhonecallNote()` → caller and connection info
+- `buildPhonecallNote()` → lists caller and connection details
 - `buildInternalNoteTitle()` → `INT-YYYYMMDD`
-- `buildInternalNote()` → "Helpjuice Used:\t<link>" or "Logs:\tLogs attached" or "Could not attach logs: <reason>"
+- `buildInternalNote()` → "Helpjuice Used:\t<link>" or "Logs:\tLogs attached" or
+  "Could not attach logs: <reason>"
 
-`CaseData` also tracks whether logs, screenshots and a recap email were sent. `buildMissionCriticalChecklist()` lists these as `TRUE` or `FALSE`:
+`CaseData` tracks whether logs were taken, screenshots captured and a
+recap email sent. The `buildMissionCriticalChecklist()` helper lists
+these items as `TRUE` or `FALSE`:
 
 ```
 Logs Taken?        TRUE
@@ -78,6 +86,7 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
 2. **Clone and build**
 
    ```powershell
+   cd C:\
    git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
    mkdir build
@@ -85,7 +94,14 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
    cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
    cmake --build . --config Release
    ```
-
+  
+   If you installed SQLite3 manually, omit the toolchain file and pass the
+   `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
+                                                  
+   ```powershell
+   cmake .. -G "Visual Studio 17 2022" -A x64 -DSQLite3_INCLUDE_DIR=C:\path\to\include -DSQLite3_LIBRARY=C:\path\to\sqlite3.lib
+   ```
+                                                  
 3. **Run the tests (optional)**
 
    ```powershell
@@ -108,5 +124,24 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
 - Update `build_windows.bat` when new Visual Studio versions are released.
 - Store the SQLite database on a fast drive if you expect many cases.
 - Extend `CaseData` or the example program to integrate with your actual CRM workflow.
+=======
+   The program creates `cases.db` in the current directory and prints
+   sample output.
+  
+### Clean Uninstall on Windows
+
+Run `uninstall_windows.bat` from an elevated Developer Command Prompt to
+remove the Chocolatey packages, delete the `vcpkg` folder, the `build`
+directory and any generated database files.
+  
+## Recommendations
+
+- Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
+- Run the unit tests after making changes to verify your setup.
+- Update `build_windows.bat` when new Visual Studio versions are
+  released.
+- Store the SQLite database on a fast drive if you expect many cases.
+- Extend `CaseData` or the example program to integrate with your actual
+  CRM workflow.
 
 See the [CHANGELOG](CHANGELOG.md) for release information.
