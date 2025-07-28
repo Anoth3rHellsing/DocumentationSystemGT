@@ -11,14 +11,20 @@ if %ERRORLEVEL% NEQ 0 (
   pause
   exit /b 1
 )
-
-choco install -y visualstudio2022buildtools cmake git
+choco install -y visualstudio2022buildtools cmake git sqlite
 if %ERRORLEVEL% NEQ 0 (
   echo Failed to install dependencies.
   pause
   exit /b 1
 )
 
+REM Refresh environment so newly installed tools are available
+refreshenv
+if %ERRORLEVEL% NEQ 0 (
+  echo Failed to refresh environment.
+  pause
+  exit /b 1
+)
 REM Locate the latest Visual Studio instance and load its environment
 for /f "usebackq tokens=*" %%i in ( `"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath` ) do set VS_PATH=%%i
 if not defined VS_PATH (

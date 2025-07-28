@@ -65,13 +65,19 @@ Recap Email sent?  TRUE
 
 The `build_windows.bat` script automates setup using
 
-[Chocolatey](https://chocolatey.org/). Run it from an elevated Developer
-Command Prompt to install dependencies, build the project, run the tests
-and launch the example program.
+[Chocolatey](https://chocolatey.org/). Run it from an elevated **Developer
+Command Prompt for VS 2022** to install dependencies, refresh your
+environment, build the project, run the tests and launch the example
+program.
 
-If you prefer manual steps, open an elevated Developer Command Prompt and
-switch to a convenient working directory such as `C:\`:
+If you prefer manual steps, open an elevated **Developer Command Prompt**
+and switch to a convenient working directory such as `C:\`:
 
+0. **Set your working directory**
+
+   ```powershell
+   cd C:\
+   ```
 
 1. **Install dependencies**
 
@@ -91,7 +97,6 @@ switch to a convenient working directory such as `C:\`:
    cd DocumentationSystemGT
    mkdir build
    cd build
-
    cmake .. -G "Visual Studio 17 2022" -A x64
    cmake --build . --config Release
    ```
@@ -117,13 +122,13 @@ switch to a convenient working directory such as `C:\`:
 
    The program creates `cases.db` in the current directory and prints
    sample output.
-
+  
 ### Clean Uninstall on Windows
 
 Run `uninstall_windows.bat` from an elevated Developer Command Prompt to
 remove the Chocolatey packages, delete the `vcpkg` folder, the `build`
 directory and any generated database files.
-
+  
 ## Recommendations
 
 - Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
