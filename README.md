@@ -33,7 +33,8 @@ Recap Email sent?  TRUE
 
    ```bash
    sudo apt-get update
-   sudo apt-get install -y build-essential cmake libsqlite3-dev git
+   sudo apt-get install -y build-essential cmake libsqlite3-dev qtbase5-dev \
+       qttools5-dev git
    ```
 
 2. **Clone and build**
@@ -80,7 +81,7 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
    choco install -y visualstudio2022buildtools cmake git
    git clone https://github.com/microsoft/vcpkg C:\vcpkg
    C:\vcpkg\bootstrap-vcpkg.bat
-   C:\vcpkg\vcpkg.exe install sqlite3
+   C:\vcpkg\vcpkg.exe install sqlite3 qt5-base qt5-tools
    refreshenv    # or restart the command prompt
    ```
 
