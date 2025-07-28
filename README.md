@@ -68,7 +68,7 @@ The `build_windows.bat` script automates setup using
 [Chocolatey](https://chocolatey.org/). Run it from an elevated Developer
 Command Prompt to install dependencies, build the project, run the tests
 and launch the example program.
-=======
+
 [Chocolatey](https://chocolatey.org/) and [vcpkg](https://github.com/microsoft/vcpkg).
 
 Run it from an elevated **Developer Command Prompt for VS** to install
