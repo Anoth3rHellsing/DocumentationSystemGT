@@ -93,7 +93,7 @@ If you prefer manual steps:
 2. **Clone and build**
 
    ```powershell
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/Anoth3rHellsing/DocumentationSystemGT)
    cd DocumentationSystemGT
    mkdir build
    cd build
