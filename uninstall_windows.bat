@@ -15,7 +15,7 @@ choco uninstall -y visualstudio2022buildtools cmake git
 
 REM Remove vcpkg packages and directory if present
 if exist vcpkg (
-  vcpkg\vcpkg.exe remove sqlite3:x64-windows
+  vcpkg\vcpkg.exe remove sqlite3:x64-windows qt5-base:x64-windows qt5-tools:x64-windows
   rmdir /s /q vcpkg
 )
 
