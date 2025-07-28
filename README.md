@@ -59,19 +59,13 @@ Recap Email sent?  TRUE
    ./doc_sys
    ```
 
-   A `cases.db` file will be created in the working directory.
+   A `cases.db` file will appear in the working directory.
 
 ### Windows
 
-The `build_windows.bat` script automates setup using
+You can run `build_windows.bat` from an elevated **Developer Command Prompt for VS 2022** to install tools with Chocolatey, refresh the environment and build the project.
 
-[Chocolatey](https://chocolatey.org/). Run it from an elevated **Developer
-Command Prompt for VS 2022** to install dependencies, refresh your
-environment, build the project, run the tests and launch the example
-program.
-
-If you prefer manual steps, open an elevated **Developer Command Prompt**
-and switch to a convenient working directory such as `C:\`:
+If you prefer manual steps, follow this procedure in an elevated Developer Command Prompt.
 
 0. **Set your working directory**
 
@@ -79,13 +73,13 @@ and switch to a convenient working directory such as `C:\`:
    cd C:\
    ```
 
-1. **Install dependencies**
-
-   Install Visual Studio Build Tools (with C++ support), CMake, Git and
-   SQLite. The easiest approach is via Chocolatey:
+1. **Install prerequisites**
 
    ```powershell
-   choco install -y visualstudio2022buildtools cmake git sqlite
+   choco install -y visualstudio2022buildtools cmake git
+   git clone https://github.com/microsoft/vcpkg C:\vcpkg
+   C:\vcpkg\bootstrap-vcpkg.bat
+   C:\vcpkg\vcpkg.exe install sqlite3
    refreshenv    # or restart the command prompt
    ```
 
@@ -97,17 +91,17 @@ and switch to a convenient working directory such as `C:\`:
    cd DocumentationSystemGT
    mkdir build
    cd build
-   cmake .. -G "Visual Studio 17 2022" -A x64
+   cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
    cmake --build . --config Release
    ```
   
    If you installed SQLite3 manually, omit the toolchain file and pass the
    `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
-
+                                                  
    ```powershell
    cmake .. -G "Visual Studio 17 2022" -A x64 -DSQLite3_INCLUDE_DIR=C:\path\to\include -DSQLite3_LIBRARY=C:\path\to\sqlite3.lib
    ```
-
+                                                  
 3. **Run the tests (optional)**
 
    ```powershell
@@ -120,6 +114,17 @@ and switch to a convenient working directory such as `C:\`:
    .\Release\doc_sys.exe
    ```
 
+   The program creates `cases.db` in the current directory and prints sample output.
+
+## Recommendations
+
+- Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
+- Manage libraries with [vcpkg](https://github.com/microsoft/vcpkg) on Windows.
+- Run the unit tests after making changes to verify your setup.
+- Update `build_windows.bat` when new Visual Studio versions are released.
+- Store the SQLite database on a fast drive if you expect many cases.
+- Extend `CaseData` or the example program to integrate with your actual CRM workflow.
+=======
    The program creates `cases.db` in the current directory and prints
    sample output.
   
