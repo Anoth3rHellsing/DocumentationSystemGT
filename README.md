@@ -64,6 +64,7 @@ Recap Email sent?  TRUE
 ### Windows
 
 The `build_windows.bat` script automates setup using
+
 [Chocolatey](https://chocolatey.org/). Run it from an elevated **Developer
 Command Prompt for VS 2022** to install dependencies, refresh your
 environment, build the project, run the tests and launch the example
@@ -91,12 +92,20 @@ and switch to a convenient working directory such as `C:\`:
 2. **Clone and build**
 
    ```powershell
+   cd C:\
    git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
    mkdir build
    cd build
    cmake .. -G "Visual Studio 17 2022" -A x64
    cmake --build . --config Release
+   ```
+  
+   If you installed SQLite3 manually, omit the toolchain file and pass the
+   `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
+
+   ```powershell
+   cmake .. -G "Visual Studio 17 2022" -A x64 -DSQLite3_INCLUDE_DIR=C:\path\to\include -DSQLite3_LIBRARY=C:\path\to\sqlite3.lib
    ```
 
 3. **Run the tests (optional)**
@@ -113,7 +122,13 @@ and switch to a convenient working directory such as `C:\`:
 
    The program creates `cases.db` in the current directory and prints
    sample output.
+  
+### Clean Uninstall on Windows
 
+Run `uninstall_windows.bat` from an elevated Developer Command Prompt to
+remove the Chocolatey packages, delete the `vcpkg` folder, the `build`
+directory and any generated database files.
+  
 ## Recommendations
 
 - Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
