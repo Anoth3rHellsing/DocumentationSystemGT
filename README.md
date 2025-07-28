@@ -1,104 +1,127 @@
 # DocumentationSystemGT
 
-Documentation System for CRM case documentation.
+Documentation system for storing CRM case information.
 
-This repository contains a basic C++ project that defines a `CaseData` structure used to store raw information for technical support cases. Cases can be stored in a small SQLite database and a helper method builds the case title in the format `||CompanyName|SIDSubscriptionID|BriefDescriptionTitle|CaseID`.
+This repository provides a minimal C++ project that demonstrates how to
+store raw technical support case information. The `CaseData` struct keeps
+details such as the caller, scanner information and mission‑critical
+checklist results. Case records are stored in a local SQLite database.
 
-`CaseData` also provides helpers to build a phone call title (`PHONECALLYYYYMMDD` for the current date) and a phone call note listing basic caller and connection information.
+Helper methods produce formatted strings for CRM notes:
+- `buildTitle()` → `||CompanyName|SIDSubscriptionID|BriefDescriptionTitle|CaseID`
+- `buildPhonecallTitle()` → `PHONECALLYYYYMMDD`
+- `buildPhonecallNote()` → lists caller and connection details
+- `buildInternalNoteTitle()` → `INT-YYYYMMDD`
+- `buildInternalNote()` → "Helpjuice Used:\t<link>" or "Logs:\tLogs attached" or
+  "Could not attach logs: <reason>"
 
-Internal notes use a similar helper for the title (`INT-YYYYMMDD`) and the `buildInternalNote` method which returns one of three variations:
+`CaseData` tracks whether logs were taken, screenshots captured and a
+recap email sent. The `buildMissionCriticalChecklist()` helper lists
+these items as `TRUE` or `FALSE`:
 
-- `Helpjuice Used:\t<Helpjuice/Jira link>`
-- `Logs:\tLogs attached (Zip Folder must be attached)`
-- `Could not attach logs: <reason>`
+```
+Logs Taken?        TRUE
+Screenshots taken? FALSE
+Recap Email sent?  TRUE
+```
 
-`CaseData` tracks three mission critical steps (logs taken, screenshots taken, recap email sent). The `buildMissionCriticalChecklist` helper returns a string listing each item as `TRUE` or `FALSE` so agents can confirm completion.
+## Installation (Quick Start)
 
-## Installation (Dumbproof Guide)
+### Linux (Ubuntu/Debian)
 
 1. **Install dependencies**
 
-   On Ubuntu/Debian run:
-
    ```bash
    sudo apt-get update
-   sudo apt-get install -y build-essential cmake libsqlite3-dev
+   sudo apt-get install -y build-essential cmake libsqlite3-dev git
    ```
 
-   Make sure `git` is available so you can clone the repository.
-
-2. **Clone this repository and build the project**
+2. **Clone and build**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
-   mkdir build && cd build
-   cmake ..
-   make
+   mkdir build
+   cd build
+   cmake .. -DCMAKE_BUILD_TYPE=Release
+   cmake --build .
    ```
 
-3. **(Optional) Run the unit test**
+3. **Run the test suite (optional)**
 
    ```bash
    ctest --output-on-failure
    ```
 
-4. **Run the example application**
+4. **Run the example**
 
    ```bash
    ./doc_sys
    ```
 
-   The program will create a `cases.db` SQLite file in the current directory and
-   print some example output.
+   A `cases.db` file will be created in the working directory.
 
 ### Windows
 
-For a quick setup you can run the provided batch script. Open an elevated
-Developer Command Prompt and execute:
+The `build_windows.bat` script automates setup using
+[Chocolatey](https://chocolatey.org/). Run it from an elevated **Developer
+Command Prompt for VS 2022** to install dependencies, refresh your
+environment, build the project, run the tests and launch the example
+program.
 
-```cmd
-build_windows.bat
-```
+If you prefer manual steps, open an elevated **Developer Command Prompt**
+and switch to a convenient working directory such as `C:\`:
 
-The script installs all required dependencies with Chocolatey, builds the
-project in Release mode, runs the tests and launches the sample application.
+0. **Set your working directory**
 
-If you prefer to perform each step manually follow the instructions below.
+   ```powershell
+   cd C:\
+   ```
 
 1. **Install dependencies**
 
-   Install [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/) with C++ support and [CMake](https://cmake.org/download/). The easiest way is via [Chocolatey](https://chocolatey.org/):
+   Install Visual Studio Build Tools (with C++ support), CMake, Git and
+   SQLite. The easiest approach is via Chocolatey:
 
    ```powershell
    choco install -y visualstudio2022buildtools cmake git sqlite
+   refreshenv    # or restart the command prompt
    ```
 
-2. **Clone this repository and build the project**
-
-   Open a Developer Command Prompt and run:
+2. **Clone and build**
 
    ```powershell
-   git clone <repository-url>
+   git clone https://github.com/Anoth3rHellsing/DocumentationSystemGT
    cd DocumentationSystemGT
    mkdir build
    cd build
-   cmake .. -G "Visual Studio 17 2022"
+   cmake .. -G "Visual Studio 17 2022" -A x64
    cmake --build . --config Release
    ```
 
-3. **(Optional) Run the unit tests**
+3. **Run the tests (optional)**
 
    ```powershell
    ctest -C Release --output-on-failure
    ```
 
-4. **Run the example application**
+4. **Run the example**
 
    ```powershell
    .\Release\doc_sys.exe
    ```
 
-   The program will create a `cases.db` SQLite file in the current directory and print some example output.
+   The program creates `cases.db` in the current directory and prints
+   sample output.
 
-See the [CHANGELOG](CHANGELOG.md) for release details.
+## Recommendations
+
+- Use `-DCMAKE_BUILD_TYPE=Release` to enable optimizations.
+- Run the unit tests after making changes to verify your setup.
+- Update `build_windows.bat` when new Visual Studio versions are
+  released.
+- Store the SQLite database on a fast drive if you expect many cases.
+- Extend `CaseData` or the example program to integrate with your actual
+  CRM workflow.
+
+See the [CHANGELOG](CHANGELOG.md) for release information.
