@@ -85,6 +85,12 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
    refreshenv    # or restart the command prompt
    ```
 
+   If you prefer not to use vcpkg, install SQLite3 and Qt 5 manually. Download
+   the 64‑bit SQLite3 binaries from <https://www.sqlite.org/download.html> and
+   extract them to a folder like `C:\sqlite`. Install Qt using the [Qt Online
+   Installer](https://www.qt.io/download) and note the path to the MSVC build,
+   for example `C:\Qt\5.15.3\msvc2019_64`.
+
 2. **Clone and build**
 
    ```powershell
@@ -93,15 +99,20 @@ If you prefer manual steps, follow this procedure in an elevated Developer Comma
    cd DocumentationSystemGT
    mkdir build
    cd build
+   ```
+
+   Using vcpkg:
+
+   ```powershell
    cmake .. -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
    cmake --build . --config Release
    ```
-  
-   If you installed SQLite3 manually, omit the toolchain file and pass the
-   `-DSQLite3_INCLUDE_DIR` and `-DSQLite3_LIBRARY` options instead.
-                                                  
+
+   For manual installs specify the paths to SQLite3 and Qt:
+
    ```powershell
-   cmake .. -G "Visual Studio 17 2022" -A x64 -DSQLite3_INCLUDE_DIR=C:\path\to\include -DSQLite3_LIBRARY=C:\path\to\sqlite3.lib
+   cmake .. -G "Visual Studio 17 2022" -A x64 -DSQLite3_INCLUDE_DIR=C:\sqlite -DSQLite3_LIBRARY=C:\sqlite\sqlite3.lib -DCMAKE_PREFIX_PATH=C:\Qt\5.15.3\msvc2019_64
+   cmake --build . --config Release
    ```
                                                   
 3. **Run the tests (optional)**
