@@ -35,6 +35,35 @@ python -m py_doc_system.gui
 
 The app stores cases in `cases.db` and previews CRM note text locally.
 
+### Python Installation
+
+1. **Install Python 3.10+ with Tkinter support**
+
+   - **Ubuntu/Debian**
+
+     ```bash
+     sudo apt-get update
+     sudo apt-get install -y python3 python3-tk
+     ```
+
+   - **Windows**
+
+     Download the latest installer from <https://www.python.org/downloads/> and
+     ensure that "tcl/tk and IDLE" is selected during setup.
+
+2. **(Optional) Create a virtual environment**
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate   # Windows: .\.venv\Scripts\activate
+   ```
+
+3. **Run the GUI**
+
+   ```bash
+   python -m py_doc_system.gui
+   ```
+
 ## Installation (Quick Start)
 
 ### Linux (Ubuntu/Debian)
