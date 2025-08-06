@@ -25,6 +25,16 @@ Screenshots taken? FALSE
 Recap Email sent?  TRUE
 ```
 
+## Python Version
+
+A lightweight Tkinter implementation is provided in `py_doc_system`. It can be run without CMake or Qt using:
+
+```bash
+python -m py_doc_system.gui
+```
+
+The app stores cases in `cases.db` and previews CRM note text locally.
+
 ## Installation (Quick Start)
 
 ### Linux (Ubuntu/Debian)
