@@ -193,13 +193,15 @@ class App(tk.Tk):
         info = self.internal_info.get()
 
         preview = (
-            f"Case Title:\n{self.data.build_title()}\n\n"
-            f"Phonecall Title:\n{self.data.build_phonecall_title()}\n"
+            f"{self.data.build_title()}\n\n"
+            f"{self.data.build_phonecall_title()}\n"
             f"{self.data.build_phonecall_note()}\n\n"
-            f"Internal Note Title:\n{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_internal_note_title()}\n"
             f"{self.data.build_internal_note(var, info)}\n\n"
-            f"Mission Critical Checklist:\n{self.data.build_mission_critical_checklist()}\n\n"
-            f"Additional Information:\n{self.data.build_additional_information_table()}"
+            f"{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_mission_critical_checklist()}\n\n"
+            f"{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_additional_information_table()}"
         )
         self.preview.configure(state="normal")
         self.preview.delete("1.0", tk.END)

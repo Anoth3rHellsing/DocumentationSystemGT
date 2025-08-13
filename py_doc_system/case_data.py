@@ -78,7 +78,9 @@ class CaseData:
     recap_email_sent: bool = False
 
     def _today(self) -> str:
-        return datetime.now().strftime("%Y%m%d")
+        """Return today's date as MDY (monthdayyear) without leading zeros."""
+        now = datetime.now()
+        return f"{now.month}{now.day}{now.year}"
 
     def build_mission_critical_checklist(self) -> str:
         to_str = lambda b: "TRUE" if b else "FALSE"
@@ -114,7 +116,7 @@ class CaseData:
         COULD_NOT_ATTACH_LOGS = 3
 
     def build_internal_note_title(self) -> str:
-        return f"INT-{self._today()}"
+        return f"INT - {self._today()}"
 
     def build_internal_note(
         self, variation: InternalNoteVariation, info: str = ""
