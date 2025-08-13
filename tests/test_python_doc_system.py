@@ -45,6 +45,22 @@ def test_case_data_builders():
     assert "Case number\t4321" in add_table
 
 
+def test_additional_information_table_defaults():
+    """Optional rows should be omitted when flags are false."""
+    d = CaseData()
+    table = d.build_additional_information_table()
+    expected = (
+        "Customer uses antivirus?\tFALSE\n"
+        "Firewalls are turned on?\tFALSE\n"
+        "Any update was made?\tFALSE\n"
+        "Is there any related case?\tFALSE"
+    )
+    assert table == expected
+    assert "Antivirus\t" not in table
+    assert "Update from->to\t" not in table
+    assert "Case number\t" not in table
+
+
 def test_database_insertion(tmp_path):
     db_path = tmp_path / "test.db"
     conn = open_database(str(db_path))
