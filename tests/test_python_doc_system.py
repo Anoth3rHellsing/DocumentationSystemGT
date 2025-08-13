@@ -30,6 +30,35 @@ def test_case_data_builders():
     assert d.build_internal_note_title().startswith("INT-")
     note = d.build_internal_note(CD.InternalNoteVariation.HELPJUICE_USED, "link")
     assert note == "Helpjuice Used:\tlink"
+    d.customer_uses_antivirus = True
+    d.antivirus = "Norton"
+    d.firewalls_on = True
+    d.any_update = True
+    d.update_from_version = "1.0"
+    d.update_to_version = "2.0"
+    d.has_related_case = True
+    d.case_id_related = "4321"
+    add_table = d.build_additional_information_table()
+    assert "Customer uses antivirus?\tTRUE" in add_table
+    assert "Antivirus\tNorton" in add_table
+    assert "Update from->to\t1.0 -> 2.0" in add_table
+    assert "Case number\t4321" in add_table
+
+
+def test_additional_information_table_defaults():
+    """Optional rows should be omitted when flags are false."""
+    d = CaseData()
+    table = d.build_additional_information_table()
+    expected = (
+        "Customer uses antivirus?\tFALSE\n"
+        "Firewalls are turned on?\tFALSE\n"
+        "Any update was made?\tFALSE\n"
+        "Is there any related case?\tFALSE"
+    )
+    assert table == expected
+    assert "Antivirus\t" not in table
+    assert "Update from->to\t" not in table
+    assert "Case number\t" not in table
 
 
 def test_database_insertion(tmp_path):

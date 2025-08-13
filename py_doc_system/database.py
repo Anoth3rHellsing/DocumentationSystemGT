@@ -59,7 +59,13 @@ def create_case_table(conn: sqlite3.Connection) -> None:
             warranty TEXT,
             logsTaken INTEGER,
             screenshotsTaken INTEGER,
-            recapEmailSent INTEGER
+            recapEmailSent INTEGER,
+            usesAntivirus INTEGER,
+            antivirusName TEXT,
+            firewallsOn INTEGER,
+            updateFrom TEXT,
+            updateTo TEXT,
+            hasRelatedCase INTEGER
         )
         """
     )
@@ -81,8 +87,10 @@ def insert_case_data(conn: sqlite3.Connection, d: CaseData) -> None:
             manualAdditional, reason, solution, recommendation, hjTutorial,
             restartComputer, scanTime, recommendationEmail, serviceTag, pcModel,
             windowsVersion, biosVersion, graphicsCard, processor, warranty,
-            logsTaken, screenshotsTaken, recapEmailSent
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            logsTaken, screenshotsTaken, recapEmailSent,
+            usesAntivirus, antivirusName, firewallsOn, updateFrom, updateTo,
+            hasRelatedCase
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """,
         (
             d.case_id,
@@ -129,6 +137,12 @@ def insert_case_data(conn: sqlite3.Connection, d: CaseData) -> None:
             int(d.logs_taken),
             int(d.screenshots_taken),
             int(d.recap_email_sent),
+            int(d.customer_uses_antivirus),
+            d.antivirus,
+            int(d.firewalls_on),
+            d.update_from_version,
+            d.update_to_version,
+            int(d.has_related_case),
         ),
     )
     conn.commit()
