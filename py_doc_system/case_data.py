@@ -15,6 +15,15 @@ class CaseData:
     description_phone_call: str = ""
     case_id_related: str = ""
 
+    # Additional information
+    customer_uses_antivirus: bool = False
+    antivirus: str = ""
+    firewalls_on: bool = False
+    any_update: bool = False
+    update_from_version: str = ""
+    update_to_version: str = ""
+    has_related_case: bool = False
+
     # Customer information
     caller_name: str = ""
     company_name: str = ""
@@ -43,7 +52,6 @@ class CaseData:
     happened_last_30_days: bool = False
     possible_cause: str = ""
     performance_issue: bool = False
-    any_update: bool = False
     manual_additional: str = ""
 
     # Automated conclusion
@@ -116,3 +124,19 @@ class CaseData:
         if variation is self.InternalNoteVariation.LOGS_ATTACHED:
             return "Logs:\tLogs attached (Zip Folder must be attached)"
         return f"Could not attach logs: {info}"
+
+    def build_additional_information_table(self) -> str:
+        to_str = lambda b: "TRUE" if b else "FALSE"
+        lines = [f"Customer uses antivirus?\t{to_str(self.customer_uses_antivirus)}"]
+        if self.customer_uses_antivirus:
+            lines.append(f"Antivirus\t{self.antivirus}")
+        lines.append(f"Firewalls are turned on?\t{to_str(self.firewalls_on)}")
+        lines.append(f"Any update was made?\t{to_str(self.any_update)}")
+        if self.any_update:
+            lines.append(
+                f"Update from->to\t{self.update_from_version} -> {self.update_to_version}"
+            )
+        lines.append(f"Is there any related case?\t{to_str(self.has_related_case)}")
+        if self.has_related_case:
+            lines.append(f"Case number\t{self.case_id_related}")
+        return "\n".join(lines)
