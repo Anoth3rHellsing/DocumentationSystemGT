@@ -40,6 +40,14 @@ class App(tk.Tk):
         self.recap_var = tk.BooleanVar()
         self.internal_var = tk.StringVar(value="Helpjuice Used")
         self.internal_info = tk.StringVar()
+        self.antivirus_var = tk.BooleanVar()
+        self.antivirus_name = tk.StringVar()
+        self.firewall_var = tk.BooleanVar()
+        self.update_var = tk.BooleanVar()
+        self.update_from = tk.StringVar()
+        self.update_to = tk.StringVar()
+        self.related_case_var = tk.BooleanVar()
+        self.related_case_number = tk.StringVar()
 
         # Form layout
         form = ttk.Frame(frame)
@@ -99,6 +107,47 @@ class App(tk.Tk):
         info_entry.grid(row=row, column=1, sticky="ew")
         info_entry.bind("<KeyRelease>", lambda e: self.update_preview())
         row += 1
+        add_frame = ttk.LabelFrame(form, text="Additional Information")
+        add_frame.grid(row=row, column=0, columnspan=2, sticky="ew")
+        ttk.Checkbutton(
+            add_frame,
+            text="Customer uses antivirus?",
+            variable=self.antivirus_var,
+            command=self.update_preview,
+        ).grid(row=0, column=0, sticky="w")
+        av_entry = ttk.Entry(add_frame, textvariable=self.antivirus_name)
+        av_entry.grid(row=0, column=1, columnspan=2, sticky="ew")
+        av_entry.bind("<KeyRelease>", lambda e: self.update_preview())
+        ttk.Checkbutton(
+            add_frame,
+            text="Firewalls are turned on?",
+            variable=self.firewall_var,
+            command=self.update_preview,
+        ).grid(row=1, column=0, columnspan=3, sticky="w")
+        ttk.Checkbutton(
+            add_frame,
+            text="Any update was made?",
+            variable=self.update_var,
+            command=self.update_preview,
+        ).grid(row=2, column=0, sticky="w")
+        from_entry = ttk.Entry(add_frame, textvariable=self.update_from, width=10)
+        from_entry.grid(row=2, column=1, sticky="ew")
+        from_entry.bind("<KeyRelease>", lambda e: self.update_preview())
+        to_entry = ttk.Entry(add_frame, textvariable=self.update_to, width=10)
+        to_entry.grid(row=2, column=2, sticky="ew")
+        to_entry.bind("<KeyRelease>", lambda e: self.update_preview())
+        ttk.Checkbutton(
+            add_frame,
+            text="Is there any related case?",
+            variable=self.related_case_var,
+            command=self.update_preview,
+        ).grid(row=3, column=0, sticky="w")
+        rel_entry = ttk.Entry(add_frame, textvariable=self.related_case_number)
+        rel_entry.grid(row=3, column=1, columnspan=2, sticky="ew")
+        rel_entry.bind("<KeyRelease>", lambda e: self.update_preview())
+        add_frame.columnconfigure(1, weight=1)
+        add_frame.columnconfigure(2, weight=1)
+        row += 1
         ttk.Button(form, text="Save Case", command=self.save_case).grid(
             row=row, column=0, columnspan=2, pady=5
         )
@@ -126,6 +175,14 @@ class App(tk.Tk):
         self.data.logs_taken = self.logs_var.get()
         self.data.screenshots_taken = self.screenshots_var.get()
         self.data.recap_email_sent = self.recap_var.get()
+        self.data.customer_uses_antivirus = self.antivirus_var.get()
+        self.data.antivirus = self.antivirus_name.get()
+        self.data.firewalls_on = self.firewall_var.get()
+        self.data.any_update = self.update_var.get()
+        self.data.update_from_version = self.update_from.get()
+        self.data.update_to_version = self.update_to.get()
+        self.data.has_related_case = self.related_case_var.get()
+        self.data.case_id_related = self.related_case_number.get()
 
         var_map = {
             "Helpjuice Used": CD.InternalNoteVariation.HELPJUICE_USED,
@@ -136,12 +193,15 @@ class App(tk.Tk):
         info = self.internal_info.get()
 
         preview = (
-            f"Case Title:\n{self.data.build_title()}\n\n"
-            f"Phonecall Title:\n{self.data.build_phonecall_title()}\n"
+            f"{self.data.build_title()}\n\n"
+            f"{self.data.build_phonecall_title()}\n"
             f"{self.data.build_phonecall_note()}\n\n"
-            f"Internal Note Title:\n{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_internal_note_title()}\n"
             f"{self.data.build_internal_note(var, info)}\n\n"
-            f"Mission Critical Checklist:\n{self.data.build_mission_critical_checklist()}"
+            f"{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_mission_critical_checklist()}\n\n"
+            f"{self.data.build_internal_note_title()}\n"
+            f"{self.data.build_additional_information_table()}"
         )
         self.preview.configure(state="normal")
         self.preview.delete("1.0", tk.END)
